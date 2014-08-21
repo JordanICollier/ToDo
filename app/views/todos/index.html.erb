@@ -1,2 +1,16 @@
 <h1> Welcome to the official To Do app (copyright pending) </h1>
-<div> <%= link_to "Create New ToDo", new_todo_path %>
+
+<% if flash[:notice] %>
+  <div> <%= flash[:notice] %> </div>
+<% end %>
+
+<ul>
+  <% @todos.each do |todo| %>
+    <li> <%= todo.name %>
+      <button> <%= link_to "edit", edit_todo_path(todo) %> </button>
+      <button> <%= link_to "delete", todo_path(todo), { method: :delete } %> </button>
+      <button> <%= link_to "finish", todo_path(todo, { status: "finished" }), {method: :put} %> </button>
+   </li>
+  <% end %>
+ </ul>
+ <div> <%= link_to "Create New ToDo", new_todo_path %> </div>
